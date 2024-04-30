@@ -7,7 +7,7 @@
 For my Java project, I am inspired to adopt a cyberpunk theme, particularly influenced by the futuristic cityscapes in the movie "Blade Runner 2049". The film creates an immersive cyberpunk world with its high-contrast neon lighting against the dark urban backdrop. I plan to incorporate a similar visual style into my project, especially the dynamic lighting and color contrasts seen in the movie, to craft an engaging user interface. I believe this technique will enhance the user experience, making the project more compelling and contemporary.
 
 
-![Cyberpunk Style Example 1](a.jpg)
+![Cyberpunk Style Example 1](library/a.jpg)
 
 *Figure 1
 
@@ -17,7 +17,7 @@ For my Java project, I am inspired to adopt a cyberpunk theme, particularly infl
 
 
 
-![Cyberpunk Style Example 2](2.jpeg)
+![Cyberpunk Style Example 2](library/2.jpeg)
 
 *Figure 2: Neon lighting effects from "Blade Runner 2049"*
 
