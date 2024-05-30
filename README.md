@@ -38,17 +38,40 @@ Color Update: The updateColor method in the RedCirclePattern class changes the c
 State Machine: Added a state machine to control the movement of the small circles within the big circles.
 Color Animation: Implemented color changes for the small red circles and the additional rings of the big circles.
 
+# Main improvements and descriptions
+
+RedCirclePattern class:
+
+Added updateColor method to make the color of the red circle change over time.
+CirclePattern class:
+
+Added state and stateStartTime properties to manage the animation state of the small circles.
+In the updateSmallCircles method, multiple states (moveToCenter, moveToEdge, rotateOnEdge, moveToCenterAgain and randomDistribution) are added to realize different animation effects of the small circles.
+Added updateRingColors method to change the color of the nested circles over time.
+setup function:
+
+Use setInterval method to update animationTime, assuming frame rate is 60 FPS.
+draw function:
+
+Call updateColor method before drawing the small red circle.
+Call updateSmallCircles and updateRingColors before drawing the big circle.
+
 # Extra code to learn
 
 I learned how to accomplish the clockwise rotation effect mainly at the following website.
+
 (https://stackoverflow.com/questions/26802817/clockwise-and-then-anticlockwise-rotation-in-javascript)
 
 # Coding Technique Exploration
 
+
 ## atan2()
 Calculates the angle formed by a point, the origin, and the positive x-axis.
+
 (https://p5js.org/reference/#/p5/atan2)
+
 
 ## dist()
 Calculates the distance between two points.
+
 （https://p5js.org/reference/#/p5/dist）

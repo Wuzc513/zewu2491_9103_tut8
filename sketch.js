@@ -55,12 +55,18 @@ class RedCirclePattern {
     this.xPos = xPos;
     this.yPos = yPos;
     this.radius = radius;
+    this.color = [230, 101, 18]; // Initial color
   }
 
   display() {
-    fill(230, 101, 18);
+    fill(this.color);
     noStroke();
     circle(this.xPos, this.yPos, this.radius * 2);
+  }
+
+  updateColor() {
+    // Change color over time
+    this.color = this.color.map(c => (c + 1) % 256);
   }
 }
 
@@ -124,6 +130,8 @@ class CirclePattern {
     }
   }
 
+  /*Creates small random circles inside the larger circle
+  This code was adapted from https://editor.p5js.org/slow_izzm/sketches/HyqLs-7AX */
   generateRandomSmallCircles() {
     let smallCircles = [];
     let x = this.xFactor * windowHeight / 20;
@@ -133,6 +141,7 @@ class CirclePattern {
     let maxAttempts = 10000;
     let attempts = 0;
 
+    // a loop that creates small circles until the amount of circles reaches the maximum
     while (smallCircles.length < 100 && attempts < maxAttempts) {
       let angle = random(TWO_PI);
       let distance = random(radius - smallCircleDiameter / 2);
@@ -141,6 +150,7 @@ class CirclePattern {
       let randColor = color(random(255), random(255), random(255));
       let newCircle = { x: randX, y: randY, color: randColor };
 
+      // checks if the circle position will overlap and creates a new circle if there is no overlap
       if (this.isValidPosition(newCircle, smallCircles, smallCircleDiameter)) {
         smallCircles.push(newCircle);
       }
@@ -151,6 +161,7 @@ class CirclePattern {
     return smallCircles;
   }
 
+  // the function that checks if the circles overlap by checking the distance between them
   isValidPosition(newCircle, smallCircles, diameter) {
     for (let circle of smallCircles) {
       let distance = dist(newCircle.x, newCircle.y, circle.x, circle.y);
@@ -161,6 +172,7 @@ class CirclePattern {
     return true;
   }
 
+  // function that draws the random small circles
   drawRandomSmallCircles() {
     let smallCircleDiameter = 10; // Smaller size of small circles
     noStroke(); // Remove stroke
@@ -170,6 +182,7 @@ class CirclePattern {
     }
   }
 
+  // Function to update the positions of small circles based on the current state
   updateSmallCircles() {
     let x = this.xFactor * windowHeight / 20;
     let y = this.yFactor * windowHeight / 20;
@@ -177,7 +190,7 @@ class CirclePattern {
     let smallCircleDiameter = 10; // Smaller diameter
     let elapsedTime = millis() - this.stateStartTime;
 
-    switch (this.state) {
+    switch (this.state) { //Source site on how to accomplish the clockwise rotation effect: https://stackoverflow.com/questions/26802817/clockwise-and-then-anticlockwise-rotation-in-javascript
       case 'moveToCenter':
         for (let smallCircle of this.smallCircles) {
           let angle = atan2(smallCircle.y - y, smallCircle.x - x);
@@ -223,7 +236,7 @@ class CirclePattern {
         }
         break;
 
-      case 'moveToCenterAgain':
+      case 'moveToCenterAgain': //https://www.youtube.com/watch?v=wiPwD5nO7Ig
         for (let smallCircle of this.smallCircles) {
           let angle = atan2(smallCircle.y - y, smallCircle.x - x);
           let distance = dist(smallCircle.x, smallCircle.y, x, y);
@@ -247,6 +260,7 @@ class CirclePattern {
     }
   }
 
+  // Function to update the colors of the additional rings
   updateRingColors() {
     let colorChangeSpeed = 1; // Speed of color change
     for (let i = 0; i < this.additionalRingColors.length; i++) {
@@ -273,7 +287,8 @@ function setup() {
     circles.push(new CirclePattern(wavylineX[i], wavylineY[i], circleColors[i]));
   }
 
-  // Create small red circles
+  /* Create small red circles
+  This code was adapted from https://www.youtube.com/watch?v=XATr_jdh-44&t=122s */
   for (let i = 0; i < redCircleAmount; i++) {
     let overlapping = true;
     let redCircle;
@@ -321,8 +336,9 @@ function draw() {
     wavyLines(wavylineX[t], wavylineY[t], 2, 134, 198, 226);
   }
 
-  // Draw all small red circles
+  // Update and draw all small red circles
   for (let redCircle of redCircles) {
+    redCircle.updateColor(); // Update color
     redCircle.display();
   }
 
