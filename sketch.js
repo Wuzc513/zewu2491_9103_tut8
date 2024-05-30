@@ -261,7 +261,7 @@ class CirclePattern {
   }
 
   // Function to update the colors of the additional rings
-  updateRingColors() {
+  updateRingColors() { //https://stackoverflow.com/questions/48187722/how-to-change-background-color-of-webpage-every-5-seconds-using-an-array-of-colo
     let colorChangeSpeed = 1; // Speed of color change
     for (let i = 0; i < this.additionalRingColors.length; i++) {
       this.additionalRingColors[i] = this.additionalRingColors[i].map(c => (c + colorChangeSpeed) % 256);

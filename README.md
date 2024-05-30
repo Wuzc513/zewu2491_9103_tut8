@@ -62,6 +62,10 @@ I learned how to accomplish the clockwise rotation effect mainly at the followin
 
 (https://stackoverflow.com/questions/26802817/clockwise-and-then-anticlockwise-rotation-in-javascript)
 
+Auto Color Changing
+
+（https://stackoverflow.com/questions/48187722/how-to-change-background-color-of-webpage-every-5-seconds-using-an-array-of-colo）
+
 # Coding Technique Exploration
 
 
