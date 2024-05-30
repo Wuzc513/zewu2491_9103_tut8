@@ -81,6 +81,9 @@ class CirclePattern {
     for (let i = 0; i < 5; i++) {
       this.additionalRingColors.push([random(0, 255), random(0, 255), random(0, 255)]);
     }
+
+    this.state = 'moveToCenter'; // Initial state
+    this.stateStartTime = millis(); // Record the start time of the current state
   }
 
   display() {
@@ -172,20 +175,75 @@ class CirclePattern {
     let y = this.yFactor * windowHeight / 20;
     let radius = circleDiameter / 2;
     let smallCircleDiameter = 10; // Smaller diameter
+    let elapsedTime = millis() - this.stateStartTime;
 
-    for (let smallCircle of this.smallCircles) {
-      let angle = atan2(smallCircle.y - y, smallCircle.x - x);
-      let distance = dist(smallCircle.x, smallCircle.y, x, y);
-      let moveSpeed = radius / 2 / 60; // Move speed per frame (2 seconds to move to center)
+    switch (this.state) {
+      case 'moveToCenter':
+        for (let smallCircle of this.smallCircles) {
+          let angle = atan2(smallCircle.y - y, smallCircle.x - x);
+          let distance = dist(smallCircle.x, smallCircle.y, x, y);
+          let moveSpeed = radius / 2 / 60; // Move speed per frame (2 seconds to move to center)
 
-      if (animationTime % 3000 < 2000) { // Move towards center for 2 seconds
-        distance -= moveSpeed;
-      } else { // Move away from center for 1 second
-        distance += moveSpeed;
-      }
+          distance -= moveSpeed;
+          smallCircle.x = x + distance * cos(angle);
+          smallCircle.y = y + distance * sin(angle);
+        }
+        if (elapsedTime > 2000) {
+          this.state = 'moveToEdge';
+          this.stateStartTime = millis();
+        }
+        break;
 
-      smallCircle.x = x + distance * cos(angle);
-      smallCircle.y = y + distance * sin(angle);
+      case 'moveToEdge':
+        for (let smallCircle of this.smallCircles) {
+          let angle = atan2(smallCircle.y - y, smallCircle.x - x);
+          let distance = dist(smallCircle.x, smallCircle.y, x, y);
+          let moveSpeed = radius / 60; // Move speed per frame (1 second to move to edge)
+
+          distance += moveSpeed;
+          smallCircle.x = x + distance * cos(angle);
+          smallCircle.y = y + distance * sin(angle);
+        }
+        if (elapsedTime > 1000) {
+          this.state = 'rotateOnEdge';
+          this.stateStartTime = millis();
+        }
+        break;
+
+      case 'rotateOnEdge':
+        for (let smallCircle of this.smallCircles) {
+          let angle = atan2(smallCircle.y - y, smallCircle.x - x);
+          angle += PI / 90; // Rotate speed (3 seconds to complete a circle)
+          smallCircle.x = x + radius * cos(angle);
+          smallCircle.y = y + radius * sin(angle);
+        }
+        if (elapsedTime > 3000) {
+          this.state = 'moveToCenterAgain';
+          this.stateStartTime = millis();
+        }
+        break;
+
+      case 'moveToCenterAgain':
+        for (let smallCircle of this.smallCircles) {
+          let angle = atan2(smallCircle.y - y, smallCircle.x - x);
+          let distance = dist(smallCircle.x, smallCircle.y, x, y);
+          let moveSpeed = radius / 60; // Move speed per frame (3 seconds to move to center)
+
+          distance -= moveSpeed;
+          smallCircle.x = x + distance * cos(angle);
+          smallCircle.y = y + distance * sin(angle);
+        }
+        if (elapsedTime > 3000) {
+          this.state = 'randomDistribution';
+          this.stateStartTime = millis();
+        }
+        break;
+
+      case 'randomDistribution':
+        this.smallCircles = this.generateRandomSmallCircles();
+        this.state = 'moveToCenter';
+        this.stateStartTime = millis();
+        break;
     }
   }
 
