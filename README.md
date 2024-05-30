@@ -1,43 +1,54 @@
 # zewu2491_9103_tut8
+# Overview
 
-# Major Assignment Design Research
-
-## Part 1: Imaging Technique Inspiration
-
-For my Java project, I am inspired to adopt a cyberpunk theme, particularly influenced by the futuristic cityscapes in the movie "Blade Runner 2049". The film creates an immersive cyberpunk world with its high-contrast neon lighting against the dark urban backdrop. I plan to incorporate a similar visual style into my project, especially the dynamic lighting and color contrasts seen in the movie, to craft an engaging user interface. I believe this technique will enhance the user experience, making the project more compelling and contemporary.
+This project is a functional prototype created using p5.js. It features animated circle patterns that change over time. The animation is driven by time, and various properties of the circles, such as color and position, are animated to create a dynamic visual experience.
 
 
-![Cyberpunk Style Example 1](library/a.jpg)
+# Animation Driver: Time
 
-*Figure 1
+I chose to drive my individual code using time. The animation evolves based on the elapsed time since the start of the program.
 
+# Animated Properties
 
+Small Circles Movement: The small circles within the big circles move towards the center, then to the edge, rotate around the edge, and finally move back to the center.
+Color Changes: The colors of the small red circles and the additional rings of the big circles change over time.
+Movement Patterns: The small circles follow a specific sequence of movements (center, edge, rotate, center again) which is unique compared to other group members.
+Color Animation: The colors of the small red circles and the additional rings change continuously, creating a dynamic visual effect.
 
+# Inspiration
 
+The inspiration for this animation came from various sources, including:
 
+![cell](library/images.jpeg)
 
+Nature: When I looked at our final code, I thought about the structure of cells that I had learned about before. These circles and lines, big and small, are like the basics that make up the world: cells. So I wanted to show a sense of well-organized atmosphere with regular variations of colors and circles.
 
-![Cyberpunk Style Example 2](library/2.jpeg)
+Art: Abstract art that uses geometric shapes and colors to create visually appealing patterns.
+Technical Explanation
 
-*Figure 2: Neon lighting effects from "Blade Runner 2049"*
+# How It Works
 
+Setup: The setup function initializes the canvas and creates the big circles and small red circles.
+Draw: The draw function is called repeatedly to update the animation. It updates the positions and colors of the circles based on the elapsed time.
+State Machine: The CirclePattern class uses a state machine to control the movement of the small circles. The states include moving to the center, moving to the edge, rotating on the edge, and moving back to the center.
+Color Update: The updateColor method in the RedCirclePattern class changes the color of the small red circles over time.
 
+# Changes to Group Code
 
+State Machine: Added a state machine to control the movement of the small circles within the big circles.
+Color Animation: Implemented color changes for the small red circles and the additional rings of the big circles.
 
+# Extra code to learn
 
+I learned how to accomplish the clockwise rotation effect mainly at the following website.
+(https://stackoverflow.com/questions/26802817/clockwise-and-then-anticlockwise-rotation-in-javascript)
 
-## Part 2: Coding Technique Exploration
+# Coding Technique Exploration
 
-I would like to be able to achieve the following effect by calling the relevant function in java: when the mouse makes a special command, the saturation of the screen will be changed. I want to be able to simulate the light pollution featured in the cyberpunk world with this effect.
+## atan2()
+Calculates the angle formed by a point, the origin, and the positive x-axis.
+(https://p5js.org/reference/#/p5/atan2)
 
-## mouseDragged()
-Description: A function that's called when the mouse moves while a button is pressed.(https://p5js.org/reference/#/p5/mouseDragged)
-
-## saturation()
-Description: Gets the saturation value of a color.(https://p5js.org/reference/#/p5/saturation)
-
-
-
-## Alpha Mask
-<<<<<<< HEAD
-Also, use Alpha Mask related effects to add a sense of psychedelic ambience.(https://p5js.org/examples/image-alpha-mask.html)
+## dist()
+Calculates the distance between two points.
+（https://p5js.org/reference/#/p5/dist）
